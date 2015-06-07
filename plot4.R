@@ -1,9 +1,16 @@
-rm(list=ls(all=TRUE))
-setwd("~/Desktop/coursera4-exploratory-data/assignment_1/")
+# Please set your working directory here to include the location where household_power_consumption.txt
+# is located. The resulting plots will also be generated at the same location.
+setwd("~")
 
 library("sqldf")  # To subset the data frame while reading it.
-library("dplyr")
-library("lubridate")
+library("dplyr")  
+library("lubridate")  # For working with dates
+
+# Check if the program is able to find the data file.
+if (!file.exists("household_power_consumption.txt")) {
+    stop("Could not find file \"household_power_consumption.txt\" in your working directory
+  Please set your working directory to include the location where \"household_power_consumption.txt\" is located.")
+}
 
 data <- read.csv.sql("household_power_consumption.txt", stringsAsFactors = FALSE, header = TRUE, sep = ";", 
                      row.names = FALSE, sql = "select * from file where Date in ('1/2/2007','2/2/2007')")
